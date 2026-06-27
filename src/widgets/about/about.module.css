@@ -1,0 +1,184 @@
+.root {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-bg);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 96px 0;
+}
+
+@media (min-width: 768px) {
+  .intro {
+    grid-template-columns: 4fr 8fr;
+    gap: 64px;
+    padding: 128px 0;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-accent);
+}
+
+.introCopy p {
+  color: var(--color-muted);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  max-width: 56ch;
+}
+
+.introCopy p + p {
+  margin-top: 24px;
+}
+
+.manifesto {
+  position: relative;
+  padding: 96px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in oklab, var(--color-accent) 8%, transparent) 0%, transparent 60%),
+    var(--color-bg);
+}
+
+@media (min-width: 768px) {
+  .manifesto {
+    padding: 160px 0;
+  }
+}
+
+.manifestoLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 48px;
+}
+
+.manifestoLine {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2rem, 5.5vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  max-width: 22ch;
+  margin: 0 auto;
+}
+
+.manifestoAccent {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 96px 0;
+}
+
+@media (min-width: 768px) {
+  .principles {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    padding: 128px 0;
+  }
+}
+
+.principle {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.principleNumber {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.principleTitle {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.principleBody {
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  padding: 96px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .meta {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 96px 0;
+  }
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metaValue {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.metaValue[data-tone="accent"] {
+  color: var(--color-accent);
+}
+
+.metaLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
