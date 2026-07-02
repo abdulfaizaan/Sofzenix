@@ -1,0 +1,129 @@
+.root {
+  position: relative;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 5fr 7fr;
+    gap: 96px;
+  }
+}
+
+.intro {
+  position: sticky;
+  top: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (max-width: 1023px) {
+  .intro {
+    position: relative;
+    top: 0;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-accent);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 24px;
+  padding: 48px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .row {
+    grid-template-columns: 80px 1fr;
+    gap: 40px;
+    padding: 64px 0;
+  }
+}
+
+.row:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.index {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  padding-top: 8px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 56ch;
+}
+
+.title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.tagline {
+  font-size: 1.125rem;
+  color: var(--color-accent);
+}
+
+.description {
+  color: var(--color-muted);
+  max-width: 56ch;
+}
+
+.capabilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}

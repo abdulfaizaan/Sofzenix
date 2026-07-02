@@ -1,0 +1,31 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: var(--z-preloader);
+  pointer-events: none;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+.glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, var(--color-accent) 100%);
+  filter: blur(4px);
+  opacity: 0.6;
+}

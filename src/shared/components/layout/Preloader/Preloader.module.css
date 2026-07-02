@@ -1,0 +1,175 @@
+/*
+ * SOFZENIX Preloader — Fantasy-style
+ *
+ * Composition (top → bottom):
+ *   1. Top-left brand mark + top-right status tag (corner-pinned, mono)
+ *   2. Massive percentage counter, display weight, tabular nums (centered)
+ *   3. Thin progress line that fills L→R under the counter
+ *   4. Bottom-left status copy (animated phase phrases)
+ *   5. Bottom-right elapsed time (mono)
+ *
+ * Exit: full preloader slides up off-screen like a curtain, ~0.9s.
+ * Total min hold: ~2.5s for theatrical pacing.
+ */
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background-color: var(--color-bg);
+  pointer-events: all;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.root[data-state="exit"] {
+  pointer-events: none;
+}
+
+/* ─── Top bar ─────────────────────────────────────────────── */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px var(--gutter);
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+.markDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 16px var(--color-accent);
+  animation: pulse 1.6s var(--ease-out-expo) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+.status {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ─── Center stage ────────────────────────────────────────── */
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 0 var(--gutter);
+}
+
+.counter {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(7rem, 22vw, 16rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.counterSymbol {
+  font-size: 0.18em;
+  font-weight: 400;
+  color: var(--color-muted);
+  margin-left: 0.15em;
+  letter-spacing: 0;
+  vertical-align: top;
+  line-height: 1;
+  align-self: flex-start;
+  margin-top: 0.4em;
+}
+
+.bar {
+  position: relative;
+  width: min(640px, 80vw);
+  height: 1px;
+  background-color: var(--color-border);
+  overflow: hidden;
+}
+
+.barFill {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-accent);
+  transform-origin: left center;
+  transform: scaleX(var(--progress, 0));
+  transition: transform 60ms linear;
+}
+
+/* ─── Bottom bar ──────────────────────────────────────────── */
+.bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 24px var(--gutter);
+  gap: 24px;
+}
+
+.phase {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 1em;
+}
+
+.phaseText {
+  display: inline-block;
+  transition: opacity 220ms var(--ease-out-expo);
+}
+
+.phaseDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+}
+
+.elapsed {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .markDot {
+    animation: none;
+  }
+  .phaseText {
+    transition: none;
+  }
+  .barFill {
+    transition: none;
+  }
+}
