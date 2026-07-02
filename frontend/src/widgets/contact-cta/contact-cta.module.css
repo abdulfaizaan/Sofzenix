@@ -1,0 +1,147 @@
+.root {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-bg);
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, color-mix(in oklab, var(--color-accent) 14%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 0%, color-mix(in oklab, var(--color-accent-secondary) 10%, transparent) 0%, transparent 60%);
+  opacity: 0.9;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 128px 0;
+  gap: 48px;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    padding: 192px 0;
+    gap: 64px;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-accent);
+}
+
+.headline {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  max-width: 16ch;
+}
+
+.headlineAccent {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subline {
+  color: var(--color-muted);
+  font-size: 1.125rem;
+  max-width: 48ch;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.reassurance {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 16px;
+  width: 100%;
+  max-width: 720px;
+  padding-top: 48px;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .reassurance {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.reassuranceItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+
+.reassuranceLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.reassuranceValue {
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.contactRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.contactRow a {
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 2px;
+  transition: border-color 200ms var(--ease-out-expo), color 200ms var(--ease-out-expo);
+}
+
+.contactRow a:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}

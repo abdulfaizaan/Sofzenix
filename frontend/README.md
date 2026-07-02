@@ -1,0 +1,83 @@
+# SOFZENIX IT Solutions LLP — Corporate Website
+
+Production-grade Next.js 15 corporate site for SOFZENIX. Built with Feature-Sliced Design, strict TypeScript, GSAP + Lenis motion, and TailwindCSS 4.
+
+## Stack
+
+- **Framework:** Next.js 15 (App Router) + React 19
+- **Language:** TypeScript (strict)
+- **Styling:** TailwindCSS 4 + CSS Variables
+- **Animation:** GSAP + ScrollTrigger + Lenis
+- **Icons:** Lucide
+- **Fonts:** Inter, Space Grotesk, JetBrains Mono via `next/font`
+- **Linting:** ESLint (next/core-web-vitals) + Prettier
+
+## Architecture
+
+Feature-Sliced Design layout:
+
+```
+src/
+├── app/             # Next.js routes, root layout, metadata
+├── shared/          # Cross-layer primitives (UI, layout, providers, hooks, lib, utils)
+├── widgets/         # Self-contained UI blocks (Hero, Services, Portfolio, About, ContactCta)
+├── features/        # User actions (reserved)
+├── entities/        # Data shapes (project, service, stat, about)
+└── assets/          # Bundled static assets
+```
+
+Strict import direction: `app → widgets → features → entities → shared`.
+
+## Getting started
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Visit `http://localhost:3000`.
+
+## Scripts
+
+```bash
+pnpm dev         # Dev server with Turbopack
+pnpm build       # Production build
+pnpm start       # Production server
+pnpm lint        # ESLint
+pnpm format      # Prettier
+pnpm type-check  # TypeScript
+```
+
+## Environment
+
+Optional env vars (see `.env.example`):
+
+- `NEXT_PUBLIC_SITE_URL` — public canonical URL
+
+## Sections delivered
+
+1. **Hero** — animated headline reveal, parallax background, floating stats, scroll indicator
+2. **Services** — sticky intro + scroll-revealed rows with capability chips
+3. **Portfolio** — pinned horizontal-scroll case study carousel with per-card parallax
+4. **About** — narrative intro + cinematic manifesto + principles + animated counters
+5. **Contact CTA** — single ask with reassurance list and direct mailto fallback
+
+## Global shell
+
+- **Preloader** — percentage counter with progress bar
+- **Cursor** — magnetic pointer with hover detection
+- **Navbar** — transparent → blurred on scroll, mobile drawer
+- **Footer** — server-rendered, four-column
+- **RouteProgress** — top-bar navigation indicator
+
+## Performance targets
+
+- Lighthouse >95
+- CLS <0.05
+- LCP <2.5s
+- 60fps minimum during animation
+- Reduced-motion respected throughout
+
+## License
+
+© SOFZENIX IT Solutions LLP. All rights reserved.

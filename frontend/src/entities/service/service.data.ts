@@ -1,0 +1,68 @@
+import { Monitor, Smartphone, Megaphone, Bot, Palette, Cloud, ShieldCheck } from "lucide-react";
+import type { Service } from "./service.types";
+
+export const SERVICES: readonly Service[] = [
+  {
+    id: "web",
+    index: "01",
+    title: "Web Platforms",
+    tagline: "Custom web development.",
+    description: "We build scalable, high-performance web applications and enterprise platforms that drive your business forward.",
+    capabilities: ["Frontend Development", "Backend Systems", "E-Commerce", "CMS Integration"],
+    icon: Monitor,
+  },
+  {
+    id: "mobile",
+    index: "02",
+    title: "Mobile Products",
+    tagline: "Native and cross-platform apps.",
+    description: "Engaging and intuitive mobile experiences tailored for iOS and Android, built to perform seamlessly on any device.",
+    capabilities: ["iOS Development", "Android Development", "React Native", "Flutter"],
+    icon: Smartphone,
+  },
+  {
+    id: "marketing",
+    index: "03",
+    title: "Digital Marketing",
+    tagline: "Growth and brand strategy.",
+    description: "Data-driven marketing campaigns that elevate your brand, increase visibility, and convert audiences into loyal customers.",
+    capabilities: ["SEO/SEM", "Social Media", "Content Strategy", "Performance Ads"],
+    icon: Megaphone,
+  },
+  {
+    id: "ai",
+    index: "04",
+    title: "AI & Automation",
+    tagline: "Process automation and intelligence.",
+    description: "Leveraging artificial intelligence to automate repetitive workflows, extract insights, and create smarter operational systems.",
+    capabilities: ["Machine Learning", "Workflow Automation", "Data Engineering", "Chatbots"],
+    icon: Bot,
+  },
+  {
+    id: "design",
+    index: "05",
+    title: "UI & UX",
+    tagline: "Graphic designing and interfaces.",
+    description: "Crafting visually stunning and highly functional user interfaces that provide an inevitable and frictionless user journey.",
+    capabilities: ["User Research", "Wireframing", "Prototyping", "Design Systems"],
+    icon: Palette,
+  },
+  {
+    id: "salesforce",
+    index: "06",
+    title: "Salesforce Cloud",
+    tagline: "CRM integration and management.",
+    description: "Streamline your sales and customer relations with expert Salesforce implementation, customization, and integrations.",
+    capabilities: ["Sales Cloud", "Service Cloud", "API Integrations", "Custom Workflows"],
+    icon: Cloud,
+  },
+  {
+    id: "ops",
+    index: "07",
+    title: "Managed Ops & 24/7",
+    tagline: "Maintenance and support.",
+    description: "Round-the-clock reliability and infrastructure management. We ensure the product you launch is the product you keep.",
+    capabilities: ["Cloud Hosting", "Security Audits", "24/7 Monitoring", "DevOps"],
+    icon: ShieldCheck,
+  },
+] as const;

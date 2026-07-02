@@ -1,0 +1,129 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  transition: background-color 400ms var(--ease-out-expo),
+    border-color 400ms var(--ease-out-expo), backdrop-filter 400ms var(--ease-out-expo);
+  border-bottom: 1px solid transparent;
+}
+
+.root[data-scrolled="true"] {
+  background-color: color-mix(in oklab, var(--color-bg) 70%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom-color: var(--color-border);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 1.05rem;
+}
+
+.logoMark {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
+  display: grid;
+  place-items: center;
+  color: var(--color-bg);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.links {
+  display: none;
+  align-items: center;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .links {
+    display: flex;
+  }
+}
+
+.link {
+  position: relative;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  transition: color 200ms var(--ease-out-expo);
+  padding: 8px 0;
+}
+
+.link:hover,
+.link[data-active="true"] {
+  color: var(--color-text);
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 300ms var(--ease-out-expo);
+}
+
+.link:hover::after,
+.link[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  transition: border-color 200ms var(--ease-out-expo), background-color 200ms var(--ease-out-expo);
+}
+
+.toggle:hover {
+  border-color: var(--color-text);
+}
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-bg);
+  z-index: calc(var(--z-nav) - 1);
+  display: flex;
+  flex-direction: column;
+  padding: 96px 32px 48px;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .drawer {
+    display: none;
+  }
+}

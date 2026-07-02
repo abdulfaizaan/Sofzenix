@@ -1,0 +1,49 @@
+.cursorDot,
+.cursorRing {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  will-change: transform;
+  transform: translate3d(-100px, -100px, 0);
+  mix-blend-mode: difference;
+}
+
+.cursorDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background-color: var(--color-text);
+  transition: width 200ms var(--ease-out-expo), height 200ms var(--ease-out-expo),
+    background-color 200ms var(--ease-out-expo);
+}
+
+.cursorRing {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-text);
+  border-radius: 999px;
+  opacity: 0.6;
+  transition: width 250ms var(--ease-out-expo), height 250ms var(--ease-out-expo),
+    border-color 200ms var(--ease-out-expo), opacity 200ms var(--ease-out-expo);
+}
+
+.cursorRing[data-hover="true"] {
+  width: 64px;
+  height: 64px;
+  border-color: var(--color-accent);
+  opacity: 1;
+}
+
+.cursorDot[data-hover="true"] {
+  width: 0;
+  height: 0;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursorDot,
+  .cursorRing {
+    display: none;
+  }
+}

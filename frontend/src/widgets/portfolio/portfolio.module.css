@@ -1,0 +1,122 @@
+.root {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-bg);
+}
+
+.intro {
+  padding: 96px 0 48px;
+}
+
+@media (min-width: 768px) {
+  .intro {
+    padding: 128px 0 64px;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-accent);
+}
+
+.stage {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .stage {
+    height: auto;
+    overflow: visible;
+  }
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding-left: max(var(--gutter), calc((100vw - 1440px) / 2));
+  padding-right: max(var(--gutter), calc((100vw - 1440px) / 2));
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .track {
+    position: relative;
+    inset: auto;
+    flex-direction: column;
+    padding: 0;
+    will-change: auto;
+    transform: none !important;
+  }
+}
+
+.card {
+  flex: 0 0 auto;
+  width: min(720px, 80vw);
+  height: min(640px, 75vh);
+}
+
+@media (max-width: 767px) {
+  .card {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin-bottom: 24px;
+  }
+}
+
+.progress {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  z-index: 2;
+}
+
+@media (max-width: 767px) {
+  .progress {
+    display: none;
+  }
+}
+
+.progressTrack {
+  position: relative;
+  width: 240px;
+  height: 1px;
+  background-color: var(--color-border);
+  overflow: hidden;
+}
+
+.progressFill {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+}

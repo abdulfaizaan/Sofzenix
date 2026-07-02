@@ -1,0 +1,61 @@
+/*
+ * SOFZENIX Design Tokens
+ * Single source of truth for color, spacing, motion.
+ * Referenced by Tailwind config and consumed directly via var().
+ */
+:root {
+  /* Color */
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-border: #232323;
+  --color-text: #ffffff;
+  --color-muted: #a0a0a0;
+  --color-accent: #4f7eff;
+  --color-accent-secondary: #8b5cf6;
+  --color-success: #22c55e;
+
+  /* Spacing scale (4-based) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 500ms;
+  --duration-hero: 1000ms;
+
+  /* Layout */
+  --container-max: 1440px;
+  --gutter: clamp(16px, 4vw, 48px);
+
+  /* Z-index scale */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-nav: 50;
+  --z-cursor: 80;
+  --z-preloader: 100;
+  --z-modal: 200;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 1ms;
+    --duration-normal: 1ms;
+    --duration-hero: 1ms;
+  }
+}
