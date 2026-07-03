@@ -27,7 +27,7 @@ export function Scene({ children }: SceneProps): React.JSX.Element | null {
       <Canvas
         camera={{ position: [0, 0, 8], fov: 45 }}
         dpr={dpr}
-        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+        gl={{ antialias: false, alpha: true, powerPreference: "default" }}
       >
         <PerformanceMonitor onDecline={() => setDpr(1)} />
         <ambientLight intensity={1.5} />

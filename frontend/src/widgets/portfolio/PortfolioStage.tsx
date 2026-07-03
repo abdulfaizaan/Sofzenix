@@ -19,6 +19,7 @@ import styles from "./portfolio.module.css";
  * On mobile, ScrollTrigger is skipped and the cards stack vertically.
  */
 export function PortfolioStage({ projects }: { projects?: Project[] }): React.JSX.Element {
+  const rootRef = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
@@ -27,9 +28,10 @@ export function PortfolioStage({ projects }: { projects?: Project[] }): React.JS
   const displayProjects = projects && projects.length > 0 ? projects : STATIC_PROJECTS;
 
   useIsomorphicLayoutEffect(() => {
+    const root = rootRef.current;
     const stage = stageRef.current;
     const track = trackRef.current;
-    if (!stage || !track || isMobile) return;
+    if (!root || !stage || !track || isMobile) return;
 
     const cards = Array.from(track.querySelectorAll<HTMLElement>("[data-project-card]"));
 
@@ -84,13 +86,13 @@ export function PortfolioStage({ projects }: { projects?: Project[] }): React.JS
           start: "top 85%",
         },
       });
-    }, stage);
+    }, root);
 
     return () => ctx.revert();
   }, [reduced, isMobile]);
 
   return (
-    <section id="work" className={styles.root}>
+    <section ref={rootRef} id="work" className={styles.root}>
       <div className={styles.intro} data-portfolio-intro>
         <Container>
           <span className={styles.eyebrow}>Selected work</span>

@@ -13,7 +13,7 @@ export const SITE = {
   email: "hello@sofzenix.com",
   phone: "+1 (555) 010-9090",
   address: {
-    city: "Bangalore",
+    city: "Andhra Pradesh",
     country: "India",
   },
   social: {

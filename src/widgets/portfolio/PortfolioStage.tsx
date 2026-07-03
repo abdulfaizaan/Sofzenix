@@ -1,5 +1,6 @@
 "use client";
 
+import type * as React from "react";
 import { useRef } from "react";
 import { useIsomorphicLayoutEffect } from "@/shared/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
@@ -18,16 +19,18 @@ import styles from "./portfolio.module.css";
  * Pinned horizontal-scroll portfolio.
  * On mobile, ScrollTrigger is skipped and the cards stack vertically.
  */
-export function PortfolioStage(): JSX.Element {
+export function PortfolioStage(): React.JSX.Element {
+  const rootRef = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
   const isMobile = useMediaQuery("(max-width: 767px)");
 
   useIsomorphicLayoutEffect(() => {
+    const root = rootRef.current;
     const stage = stageRef.current;
     const track = trackRef.current;
-    if (!stage || !track || isMobile) return;
+    if (!root || !stage || !track || isMobile) return;
 
     const cards = Array.from(track.querySelectorAll<HTMLElement>("[data-project-card]"));
 
@@ -55,7 +58,7 @@ export function PortfolioStage(): JSX.Element {
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: () => {
-            cards.forEach((card) => {
+            cards.forEach((card: any) => {
               const rect = card.getBoundingClientRect();
               const stageRect = stage.getBoundingClientRect();
               const cardCenter = rect.left + rect.width / 2 - stageRect.left;
@@ -82,13 +85,13 @@ export function PortfolioStage(): JSX.Element {
           start: "top 85%",
         },
       });
-    }, stage);
+    }, root);
 
     return () => ctx.revert();
   }, [reduced, isMobile]);
 
   return (
-    <section id="work" className={styles.root}>
+    <section ref={rootRef} id="work" className={styles.root}>
       <div className={styles.intro} data-portfolio-intro>
         <Container>
           <span className={styles.eyebrow}>Selected work</span>

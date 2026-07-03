@@ -73,7 +73,7 @@ export function AboutStage(): JSX.Element {
           <div className={styles.introCopy}>
             <p>
               SOFZENIX is a product studio of engineers and designers building digital
-              systems for companies that ship. We were founded in 2021 in Bangalore
+              systems for companies that ship. We were founded in 2021 in Andhra Pradesh
               with one belief — that the distance between a sharp idea and a reliable
               product is shorter than most firms make it.
             </p>
