@@ -40,6 +40,7 @@ export function AboutStage(): React.JSX.Element {
         scrollTrigger: {
           trigger: root,
           start: "top 80%",
+          toggleActions: "play reverse play reverse",
         },
         defaults: { ease: EASE.outExpo },
       });

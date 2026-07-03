@@ -12,8 +12,11 @@ import { Button } from "@/shared/components/ui/Button";
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Invalid email address"),
-  subject: z.string().min(2, "Subject is required"),
+  subject: z.string().min(2, "Company is required"),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  privacyPolicy: z.literal(true, {
+    errorMap: () => ({ message: "You must agree to the privacy policy" }),
+  }),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -40,7 +43,7 @@ export function ContactForm(): React.JSX.Element {
       const response = await fetch("http://localhost:4000/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Map frontend "subject" to backend "service" field
+        // Map frontend "subject" (Company) to backend "service" field
         body: JSON.stringify({
           name: data.name,
           email: data.email,
@@ -66,91 +69,106 @@ export function ContactForm(): React.JSX.Element {
   };
 
   return (
-    <Reveal as="div" y={32} className="w-full">
+    <Reveal as="div" y={20} className="w-full">
       {status === "success" ? (
-        <div className="bg-accent/10 border border-accent p-8 text-center space-y-4">
-          <h3 className="text-xl text-accent font-medium uppercase tracking-widest">Message Sent</h3>
-          <p className="text-muted">Thank you for reaching out. Our team will get back to you shortly.</p>
-          <Button variant="outline" onClick={() => setStatus("idle")}>Send another message</Button>
+        <div className="bg-green-50 border border-green-200 p-8 text-center rounded-2xl space-y-4">
+          <h3 className="text-xl text-green-800 font-medium tracking-tight">Message Sent</h3>
+          <p className="text-green-600">Thank you for reaching out. Our team will get back to you shortly.</p>
+          <button 
+            type="button"
+            className="mt-4 px-6 py-2 bg-white border border-green-200 text-green-700 rounded-lg text-sm font-medium hover:bg-green-50 transition-colors"
+            onClick={() => setStatus("idle")}
+          >
+            Send another message
+          </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 md:space-y-6 flex flex-col">
           {status === "error" && (
-            <div className="bg-red-500/10 border border-red-500 p-4 text-red-500 text-sm">
+            <div className="bg-red-50 border border-red-200 p-4 text-red-600 text-sm rounded-lg">
               {errorMessage}
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex flex-col space-y-2">
-            <label htmlFor="name" className="text-small font-medium text-muted uppercase tracking-wider">
-              Name
-            </label>
+
+          <div className="flex flex-col space-y-1 relative group">
+            <label htmlFor="name" className="sr-only">Name</label>
             <input
               {...register("name")}
               id="name"
-              className="bg-surface/50 border border-border px-4 py-3 rounded-none focus:outline-none focus:border-accent transition-colors text-text"
-              placeholder="Jane Doe"
+              className="bg-transparent border-0 border-b-2 border-border px-0 py-3 focus:ring-0 focus:outline-none focus:border-accent transition-colors text-text text-lg placeholder:text-muted"
+              placeholder="Your Name"
               aria-invalid={!!errors.name}
               suppressHydrationWarning
             />
-            {errors.name && <span className="text-red-500 text-xs">{errors.name.message}</span>}
+            {errors.name && <span className="text-red-500 text-[10px] absolute -bottom-4 left-0 uppercase font-semibold tracking-wider">{errors.name.message}</span>}
           </div>
 
-          <div className="flex flex-col space-y-2">
-            <label htmlFor="email" className="text-small font-medium text-muted uppercase tracking-wider">
-              Email
-            </label>
+          <div className="flex flex-col space-y-1 relative group">
+            <label htmlFor="subject" className="sr-only">Company</label>
+            <input
+              {...register("subject")}
+              id="subject"
+              className="bg-transparent border-0 border-b-2 border-border px-0 py-3 focus:ring-0 focus:outline-none focus:border-accent transition-colors text-text text-lg placeholder:text-muted"
+              placeholder="Company"
+              aria-invalid={!!errors.subject}
+              suppressHydrationWarning
+            />
+            {errors.subject && <span className="text-red-500 text-[10px] absolute -bottom-4 left-0 uppercase font-semibold tracking-wider">{errors.subject.message}</span>}
+          </div>
+
+          <div className="flex flex-col space-y-1 relative group">
+            <label htmlFor="email" className="sr-only">Email</label>
             <input
               {...register("email")}
               id="email"
               type="email"
-              className="bg-surface/50 border border-border px-4 py-3 rounded-none focus:outline-none focus:border-accent transition-colors text-text"
-              placeholder="jane@example.com"
+              className="bg-transparent border-0 border-b-2 border-border px-0 py-3 focus:ring-0 focus:outline-none focus:border-accent transition-colors text-text text-lg placeholder:text-muted"
+              placeholder="Email"
               aria-invalid={!!errors.email}
               suppressHydrationWarning
             />
-            {errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}
+            {errors.email && <span className="text-red-500 text-[10px] absolute -bottom-4 left-0 uppercase font-semibold tracking-wider">{errors.email.message}</span>}
           </div>
-        </div>
 
-        <div className="flex flex-col space-y-2">
-          <label htmlFor="subject" className="text-small font-medium text-muted uppercase tracking-wider">
-            Subject
-          </label>
-          <input
-            {...register("subject")}
-            id="subject"
-            className="bg-surface/50 border border-border px-4 py-3 rounded-none focus:outline-none focus:border-accent transition-colors text-text"
-            placeholder="How can we help?"
-            aria-invalid={!!errors.subject}
-            suppressHydrationWarning
-          />
-          {errors.subject && <span className="text-red-500 text-xs">{errors.subject.message}</span>}
-        </div>
+          <div className="flex flex-col space-y-1 relative group">
+            <label htmlFor="message" className="sr-only">Message</label>
+            <textarea
+              {...register("message")}
+              id="message"
+              rows={3}
+              className="bg-transparent border-0 border-b-2 border-border px-0 py-3 focus:ring-0 focus:outline-none focus:border-accent transition-colors text-text text-lg placeholder:text-muted resize-none min-h-[80px]"
+              placeholder="Message"
+              aria-invalid={!!errors.message}
+              suppressHydrationWarning
+            />
+            {errors.message && <span className="text-red-500 text-[10px] absolute -bottom-4 left-0 uppercase font-semibold tracking-wider">{errors.message.message}</span>}
+          </div>
 
-        <div className="flex flex-col space-y-2">
-          <label htmlFor="message" className="text-small font-medium text-muted uppercase tracking-wider">
-            Message
-          </label>
-          <textarea
-            {...register("message")}
-            id="message"
-            rows={5}
-            className="bg-surface/50 border border-border px-4 py-3 rounded-none focus:outline-none focus:border-accent transition-colors text-text resize-none"
-            placeholder="Tell us about your project..."
-            aria-invalid={!!errors.message}
-            suppressHydrationWarning
-          />
-          {errors.message && <span className="text-red-500 text-xs">{errors.message.message}</span>}
-        </div>
-
-        <div className="pt-4">
-          <Button size="lg" variant="primary" disabled={isSubmitting} className="w-full md:w-auto">
-            {isSubmitting ? "Sending..." : "Send Message"}
-            <span aria-hidden="true" className="ml-2">→</span>
-          </Button>
-        </div>
-      </form>
+          {/* Footer Area with Checkbox and Submit Button */}
+          <div className="pt-6 flex flex-col md:flex-row md:items-end justify-between gap-6 mt-4">
+            <div className="flex items-center gap-3 relative">
+              <input 
+                type="checkbox" 
+                id="privacyPolicy" 
+                {...register("privacyPolicy")}
+                className="w-[18px] h-[18px] border-border rounded-sm bg-transparent cursor-pointer appearance-none checked:bg-accent checked:border-accent relative before:content-[''] before:absolute before:inset-0 before:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwb2x5bGluZSBwb2ludHM9IjIwIDYgOSAxNyA0IDEyIj48L3BvbHlsaW5lPjwvc3ZnPg==')] before:bg-no-repeat before:bg-center before:bg-[length:12px_12px] checked:before:block before:hidden focus:ring-0 focus:outline-none"
+              />
+              <label htmlFor="privacyPolicy" className="text-sm text-muted cursor-pointer select-none">
+                I agree to the <a href="/privacy-policy" className="underline hover:text-accent transition-colors">privacy policy</a>.
+              </label>
+              {errors.privacyPolicy && <span className="text-red-500 text-[10px] absolute -bottom-5 left-0 uppercase font-semibold tracking-wider w-max">{errors.privacyPolicy.message}</span>}
+            </div>
+            
+            <Button 
+              type="submit" 
+              variant="primary"
+              disabled={isSubmitting}
+              className="w-full md:w-auto"
+            >
+              {isSubmitting ? "Sending..." : "Submit"}
+            </Button>
+          </div>
+        </form>
       )}
     </Reveal>
   );

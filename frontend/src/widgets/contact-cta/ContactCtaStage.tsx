@@ -75,6 +75,7 @@ export function ContactCtaStage({
         scrollTrigger: {
           trigger: root,
           start: "top 80%",
+          toggleActions: "play reverse play reverse",
         },
       });
     }, root);

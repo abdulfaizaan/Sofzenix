@@ -1,0 +1,350 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ----------------------------------------------------------------------------
+// Enums
+// ----------------------------------------------------------------------------
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  HR
+  MARKETING
+  VIEWER
+}
+
+enum ContactStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+  ARCHIVED
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
+enum ApplicationStatus {
+  NEW
+  REVIEWING
+  INTERVIEWING
+  OFFERED
+  HIRED
+  REJECTED
+}
+
+// ----------------------------------------------------------------------------
+// Users & Auth
+// ----------------------------------------------------------------------------
+
+model User {
+  id           String @id @default(uuid())
+  email        String @unique
+  passwordHash String
+  name         String
+  role         Role   @default(VIEWER)
+
+  sessions  Session[]
+  auditLogs AuditLog[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// Portfolio
+// ----------------------------------------------------------------------------
+
+model Project {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  title       String
+  description String
+  client      String?
+  completedAt DateTime?
+  featured    Boolean   @default(false)
+  results     String? // Markdown or JSON
+
+  categoryId String?
+  category   ProjectCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  technologies Technology[]
+  media        ProjectMedia[]
+
+  seoId String?      @unique
+  seo   SeoMetadata? @relation(fields: [seoId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model ProjectCategory {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  name        String
+  description String?
+  projects    Project[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Technology {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  icon     String?
+  projects Project[]
+
+  createdAt DateTime @default(now())
+}
+
+model ProjectMedia {
+  id    String  @id @default(uuid())
+  url   String
+  alt   String?
+  type  String // "IMAGE" or "VIDEO"
+  order Int     @default(0)
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// Marketing & Services
+// ----------------------------------------------------------------------------
+
+model Service {
+  id          String  @id @default(uuid())
+  slug        String  @unique
+  title       String
+  description String
+  icon        String?
+  content     String // Full markdown content
+
+  seoId String?      @unique
+  seo   SeoMetadata? @relation(fields: [seoId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Testimonial {
+  id        String  @id @default(uuid())
+  name      String
+  role      String?
+  company   String?
+  content   String
+  avatarUrl String?
+  featured  Boolean @default(false)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model TeamMember {
+  id          String  @id @default(uuid())
+  name        String
+  role        String
+  bio         String?
+  photoUrl    String?
+  socialLinks Json? // e.g., { "linkedin": "...", "twitter": "..." }
+  order       Int     @default(0)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+// ----------------------------------------------------------------------------
+// Blog
+// ----------------------------------------------------------------------------
+
+model Post {
+  id          String  @id @default(uuid())
+  slug        String  @unique
+  title       String
+  excerpt     String?
+  content     String // Markdown or HTML
+  published   Boolean @default(false)
+  readingTime Int? // In minutes
+  coverImage  String?
+
+  categoryId String?
+  category   BlogCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  tags Tag[]
+
+  seoId String?      @unique
+  seo   SeoMetadata? @relation(fields: [seoId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model BlogCategory {
+  id    String @id @default(uuid())
+  slug  String @unique
+  name  String
+  posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id    String @id @default(uuid())
+  slug  String @unique
+  name  String
+  posts Post[]
+
+  createdAt DateTime @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// Careers
+// ----------------------------------------------------------------------------
+
+model Job {
+  id           String  @id @default(uuid())
+  slug         String  @unique
+  title        String
+  department   String
+  location     String
+  type         JobType
+  description  String
+  requirements String
+  active       Boolean @default(true)
+
+  applications Application[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Application {
+  id    String @id @default(uuid())
+  jobId String
+  job   Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  firstName   String
+  lastName    String
+  email       String
+  phone       String?
+  resumeUrl   String
+  portfolio   String?
+  coverLetter String?
+
+  status ApplicationStatus @default(NEW)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ----------------------------------------------------------------------------
+// CRM & Leads
+// ----------------------------------------------------------------------------
+
+model ContactMessage {
+  id      String        @id @default(uuid())
+  name    String
+  email   String
+  service String?
+  message String
+  status  ContactStatus @default(NEW)
+  notes   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id      String        @id @default(uuid())
+  name    String
+  email   String
+  company String?
+  source  String?
+  status  ContactStatus @default(NEW)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NewsletterSubscriber {
+  id     String  @id @default(uuid())
+  email  String  @unique
+  active Boolean @default(true)
+
+  createdAt DateTime @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// SEO & System
+// ----------------------------------------------------------------------------
+
+model SeoMetadata {
+  id           String  @id @default(uuid())
+  title        String?
+  description  String?
+  canonicalUrl String?
+  ogImage      String?
+  twitterCard  String?
+  noIndex      Boolean @default(false)
+
+  project Project?
+  service Service?
+  post    Post?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSetting {
+  id          String  @id @default(uuid())
+  key         String  @unique
+  value       String // JSON string
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String  @id @default(uuid())
+  action     String // e.g., "CREATE_POST", "UPDATE_SETTINGS"
+  entityType String
+  entityId   String?
+  details    Json?
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+}

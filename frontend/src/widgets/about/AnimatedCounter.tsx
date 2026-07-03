@@ -48,7 +48,7 @@ export function AnimatedCounter({
         scrollTrigger: {
           trigger: el,
           start: "top 85%",
-          once: true,
+          toggleActions: "play none none reverse",
         },
       });
     }, el);

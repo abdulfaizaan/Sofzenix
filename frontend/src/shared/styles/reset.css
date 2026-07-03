@@ -23,6 +23,22 @@ body {
   overflow-x: hidden;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+h1 { font-size: clamp(3rem, 10vw, 9rem); }
+h2 { font-size: clamp(2.5rem, 8vw, 6.5rem); }
+h3 { font-size: clamp(2rem, 6vw, 4.5rem); letter-spacing: -0.03em; }
+h4 { font-size: clamp(1.5rem, 4vw, 3rem); letter-spacing: -0.02em; }
+h5 { font-size: clamp(1.25rem, 3vw, 2rem); letter-spacing: -0.01em; }
+h6 { font-size: clamp(1.125rem, 2vw, 1.5rem); letter-spacing: 0; }
+
+
 img,
 picture,
 video,

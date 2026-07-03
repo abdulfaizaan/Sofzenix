@@ -115,7 +115,7 @@ export function NavbarMenu(): React.JSX.Element {
               aria-expanded={drawerOpen}
               onClick={() => setDrawerOpen((v) => !v)}
             >
-              <span aria-hidden="true">{drawerOpen ? "✕" : "☰"}</span>
+              <span aria-hidden="true">{drawerOpen ? "Close" : "Menu"}</span>
             </button>
           </div>
         </div>
@@ -143,9 +143,9 @@ export function NavbarMenu(): React.JSX.Element {
 
           <div className={styles.drawerFooter} data-drawer-footer>
             <div className="flex gap-6 text-muted text-lg">
-              <a href={`mailto:${SITE.email}`} className="hover:text-text transition-colors">
+              <span className="hover:text-text transition-colors cursor-pointer">
                 {SITE.email}
-              </a>
+              </span>
             </div>
             <div>
               <Link

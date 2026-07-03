@@ -31,7 +31,7 @@ export function Reveal({
   y = 32,
   duration = 0.8,
   as: Tag = "div",
-  once = true,
+  once = false,
 }: RevealProps): React.JSX.Element {
   const ref = useRef<HTMLElement | null>(null);
   const reduced = useReducedMotion();

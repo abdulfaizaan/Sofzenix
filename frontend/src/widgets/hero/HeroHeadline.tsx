@@ -56,16 +56,16 @@ export function HeroHeadline({ eyebrow, lines, className }: HeroHeadlineProps): 
         {
           opacity: 0,
           yPercent: 110,
-          duration: 1,
-          stagger: 0.12,
+          duration: 1.2,
+          stagger: 0.2,
         },
         0.2,
       ).from(
         innerEls,
         {
           yPercent: 110,
-          duration: 1,
-          stagger: 0.12,
+          duration: 1.2,
+          stagger: 0.2,
         },
         0.2,
       );
@@ -86,7 +86,7 @@ export function HeroHeadline({ eyebrow, lines, className }: HeroHeadlineProps): 
         </span>
       )}
 
-      <h1 className="font-display text-hero font-medium leading-[0.95] tracking-[-0.04em]">
+      <h1>
         {lines.map((line) => (
           <span
             key={line.id}
