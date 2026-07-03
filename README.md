@@ -1,82 +1,65 @@
-# SOFZENIX IT Solutions LLP — Corporate Website
+# SOFZENIX IT Solutions LLP — Corporate Monorepo
 
-Production-grade Next.js 15 corporate site for SOFZENIX. Built with Feature-Sliced Design, strict TypeScript, GSAP + Lenis motion, and TailwindCSS 4.
+Production-grade Next.js 15 corporate site for SOFZENIX. This repository is structured into two decoupled, distinct projects: the highly-animated frontend and the robust Prisma-powered API backend.
 
-## Stack
+## 📁 Repository Structure
 
+```
+SOFZENIX/
+├── backend/     # Next.js 15 API routes, Prisma ORM, PostgreSQL, CMS Admin Endpoints
+└── frontend/    # Next.js 15 App Router, GSAP Animations, Tailwind 4, Marketing UI
+```
+
+---
+
+## 🏗️ 1. Frontend Architecture (Marketing Site)
+
+The frontend is built with Feature-Sliced Design, strict TypeScript, GSAP + Lenis motion, and TailwindCSS 4.
+
+### Tech Stack
 - **Framework:** Next.js 15 (App Router) + React 19
-- **Language:** TypeScript (strict)
 - **Styling:** TailwindCSS 4 + CSS Variables
-- **Animation:** GSAP + ScrollTrigger + Lenis
-- **Icons:** Lucide
-- **Fonts:** Inter, Space Grotesk, JetBrains Mono via `next/font`
-- **Linting:** ESLint (next/core-web-vitals) + Prettier
+- **Animation:** GSAP + ScrollTrigger + Lenis Smooth Scroll
+- **Typography:** Inter, Space Grotesk, JetBrains Mono
 
-## Architecture
-
-Feature-Sliced Design layout:
-
-```
-src/
-├── app/             # Next.js routes, root layout, metadata
-├── shared/          # Cross-layer primitives (UI, layout, providers, hooks, lib, utils)
-├── widgets/         # Self-contained UI blocks (Hero, Services, Portfolio, About, ContactCta)
-├── features/        # User actions (reserved)
-├── entities/        # Data shapes (project, service, stat, about)
-└── assets/          # Bundled static assets
-```
-
-Strict import direction: `app → widgets → features → entities → shared`.
-
-## Getting started
-
+### Running Locally
 ```bash
+cd frontend
 pnpm install
 pnpm dev
 ```
+Visit `http://localhost:3000` to see the site.
 
-Visit `http://localhost:3000`.
+---
 
-## Scripts
+## ⚙️ 2. Backend Architecture (API & CMS)
 
+The backend handles the PostgreSQL database connection, JWT Edge authentication, Role-Based Access Control, and Zod input validation. It serves as the central API for the Portfolio, CRM, Blog, and Careers.
+
+### Tech Stack
+- **Framework:** Next.js 15 (API Route Handlers)
+- **Database:** PostgreSQL (via Neon)
+- **ORM:** Prisma v6
+- **Validation:** Zod
+- **Authentication:** Custom JWT-based stateless auth (`jose`)
+
+### Running Locally
+1. Ensure your `.env` file in the `backend` folder has your `DATABASE_URL` and `JWT_SECRET`.
+2. Start the API server:
 ```bash
-pnpm dev         # Dev server with Turbopack
-pnpm build       # Production build
-pnpm start       # Production server
-pnpm lint        # ESLint
-pnpm format      # Prettier
-pnpm type-check  # TypeScript
+cd backend
+npm install
+npm run dev
 ```
+Visit `http://localhost:3001` (or your configured port) to access the API endpoints.
 
-## Environment
+---
 
-Optional env vars (see `.env.example`):
+## 🔒 Security & Performance
 
-- `NEXT_PUBLIC_SITE_URL` — public canonical URL
-
-## Sections delivered
-
-1. **Hero** — animated headline reveal, parallax background, floating stats, scroll indicator
-2. **Services** — sticky intro + scroll-revealed rows with capability chips
-3. **Portfolio** — pinned horizontal-scroll case study carousel with per-card parallax
-4. **About** — narrative intro + cinematic manifesto + principles + animated counters
-5. **Contact CTA** — single ask with reassurance list and direct mailto fallback
-
-## Global shell
-
-- **Preloader** — percentage counter with progress bar
-- **Cursor** — magnetic pointer with hover detection
-- **Navbar** — transparent → blurred on scroll, mobile drawer
-- **Footer** — server-rendered, four-column
-- **RouteProgress** — top-bar navigation indicator
-
-## Performance targets
-
-- Lighthouse >95
-- CLS <0.05
-- LCP <2.5s
-- 60fps minimum during animation
-- Reduced-motion respected throughout
+- **Rate Limiting:** Public POST endpoints are protected by in-memory rate limiting.
+- **CORS:** Cross-Origin Resource Sharing is strictly enforced.
+- **Aesthetics:** The frontend targets 60fps minimum rendering via GSAP GPU acceleration, respecting reduced-motion preferences.
 
 ## License
 
