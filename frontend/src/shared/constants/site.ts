@@ -11,7 +11,7 @@ export const SITE = {
   ogImage: "/og.png",
   locale: "en-US",
   email: "hello@sofzenix.com",
-  phone: "+1 (555) 010-9090",
+  phone: "+91 98765 43210",
   address: {
     city: "Andhra Pradesh",
     country: "India",

@@ -54,9 +54,14 @@ export function Footer(): React.JSX.Element {
         </div>
 
         <div className="flex flex-col items-start justify-between gap-4 border-t border-border py-6 text-small text-muted md:flex-row md:items-center">
-          <span>
-            © {year} {SITE.name}. All rights reserved.
-          </span>
+          <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+            <span>
+              © {year} {SITE.name}. All rights reserved.
+            </span>
+            <Link href="/privacy-policy" className="hover:text-accent transition-colors">
+              Privacy Policy & Terms
+            </Link>
+          </div>
           <span>Engineered with intent.</span>
         </div>
       </Container>
