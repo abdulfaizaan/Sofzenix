@@ -16,8 +16,9 @@ const contactSchema = z.object({
   subject: z.string().min(2, "Company is required"),
   message: z.string().min(10, "Message must be at least 10 characters"),
   privacyPolicy: z.literal(true, {
-    errorMap: () => ({ message: "You must agree to the privacy policy" }),
+    message: "You must agree to the privacy policy"
   }),
+
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -41,9 +42,12 @@ export function ContactForm(): React.JSX.Element {
     setErrorMessage("");
 
     try {
-      const response = await fetch("http://localhost:4000/api/contact", {
+      const response = await fetch("http://localhost:4000/api/public/crm/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "x-frontend-key": process.env.NEXT_PUBLIC_FRONTEND_API_KEY || "default_dev_key_123"
+        },
         // Map frontend "subject" (Company) to backend "service" field
         body: JSON.stringify({
           name: data.name,
