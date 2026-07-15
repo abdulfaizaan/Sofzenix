@@ -1,11 +1,9 @@
 import type * as React from "react";
 import type { Metadata } from "next";
-import { Hero } from "@/widgets/hero";
+
 import { ContactForm } from "@/widgets/contact-form";
 import { ContactInfoTabs } from "@/widgets/contact-form/ContactInfoTabs";
-import { Container } from "@/shared/components/ui/Container";
-import { Section } from "@/shared/components/ui/Section";
-import { Heading } from "@/shared/components/ui/Heading";
+
 import { SITE } from "@/shared/constants/site";
 
 export const metadata: Metadata = {
@@ -29,7 +27,7 @@ export default function ContactPage(): React.JSX.Element {
           
           <div className="relative z-10 flex-1 flex flex-col">
             <h2 className="text-4xl md:text-[2.75rem] font-sans font-bold tracking-tight mb-3">Get in touch</h2>
-            <p className="text-muted text-lg mb-8 font-medium">We'd love to hear from you and your team</p>
+            <p className="text-muted text-lg mb-8 font-medium">We&apos;d love to hear from you and your team</p>
             
             <div className="w-full max-w-xl">
               <ContactForm />

@@ -1,6 +1,6 @@
 import type * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
+
 import { cn } from "@/shared/utils/cn";
 import type { Project } from "./project.types";
 
@@ -9,10 +9,7 @@ interface ProjectCardProps {
   readonly className?: string;
 }
 
-const accentText = {
-  accent: "text-accent",
-  secondary: "text-accent-secondary",
-} as const;
+
 
 const accentBg = {
   accent: "bg-accent",

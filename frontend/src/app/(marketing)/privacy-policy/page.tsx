@@ -75,12 +75,12 @@ export default function PrivacyPolicyPage(): React.JSX.Element {
                 </div>
                 <div>
                   <h3 className="font-medium text-text mb-4 flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span> What we don't do
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span> What we don&apos;t do
                   </h3>
                   <ul className="space-y-3 text-base text-muted list-disc pl-5">
                     <li>We never sell your personal data to advertisers.</li>
-                    <li>We don't use dark patterns or pre-ticked consent boxes.</li>
-                    <li>We don't share data with third parties without your explicit consent.</li>
+                    <li>We don&apos;t use dark patterns or pre-ticked consent boxes.</li>
+                    <li>We don&apos;t share data with third parties without your explicit consent.</li>
                   </ul>
                 </div>
               </div>
