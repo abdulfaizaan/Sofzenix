@@ -143,9 +143,12 @@ export function NavbarMenu(): React.JSX.Element {
 
           <div className={styles.drawerFooter} data-drawer-footer>
             <div className="flex gap-6 text-muted text-lg">
-              <span className="hover:text-text transition-colors cursor-pointer">
+              <a 
+                href={`mailto:${SITE.email}`}
+                className="hover:text-text transition-colors"
+              >
                 {SITE.email}
-              </span>
+              </a>
             </div>
             <div>
               <Link

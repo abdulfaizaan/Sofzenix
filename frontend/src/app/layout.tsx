@@ -9,7 +9,10 @@ import { Cursor } from "@/shared/components/layout/Cursor";
 import { RouteProgress } from "@/shared/components/layout/RouteProgress";
 import { Navbar } from "@/shared/components/layout/Navbar";
 import { Footer } from "@/shared/components/layout/Footer";
+import { SkipToContent } from "@/shared/components/layout/SkipToContent";
 import { SITE } from "@/shared/constants/site";
+import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -92,6 +95,11 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
       suppressHydrationWarning
     >
       <body className="bg-bg text-text antialiased">
+        <Script
+          defer
+          data-domain="sofzenix.com"
+          src="https://plausible.io/js/script.js"
+        />
         <ThemeProvider>
           <GSAPProvider>
             <SmoothScrollProvider>
@@ -99,13 +107,15 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
                 <RouteProgress />
               </Suspense>
               <Preloader />
+              <SkipToContent />
               <Cursor />
               <Navbar />
-              <main className="relative">{children}</main>
+              <main id="main-content" className="relative">{children}</main>
               <Footer />
             </SmoothScrollProvider>
           </GSAPProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

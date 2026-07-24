@@ -1,17 +1,31 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { verifyJwt } from "./lib/auth";
+import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
 
 // Routes that require authentication
 const protectedPaths = ["/api/admin", "/admin"];
 
 // Routes that require SUPER_ADMIN or ADMIN role
-const adminOnlyPaths = ["/api/admin/users", "/api/admin/settings"];
+const adminOnlyPaths = ["/api/admin/users", "/api/admin/settings", "/api/admin/roles"];
 
-// In-memory rate limiting map (resets on cold boot in Edge runtime)
-const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
-const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
-const MAX_REQUESTS_PER_WINDOW = 5; // Max 5 POSTs per minute
+// Routes that require EDITOR role to modify (POST, PUT, DELETE). VIEWER can only GET.
+const contentPaths = ["/api/admin/content", "/api/admin/portfolio", "/api/admin/blog", "/api/admin/services", "/api/admin/media"];
+
+// Initialize Upstash Redis Rate Limiter
+let ratelimit: Ratelimit | null = null;
+if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+  const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  });
+  ratelimit = new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(5, "1 m"),
+    analytics: true,
+  });
+}
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -26,22 +40,18 @@ export async function middleware(request: NextRequest) {
       return NextResponse.json({ error: "Forbidden: Invalid API Key" }, { status: 403 });
     }
 
-    // Rate Limiting Logic
+    // Rate Limiting Logic via Upstash
     const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown_ip";
-    const now = Date.now();
-    const limitRecord = rateLimitMap.get(ip) || { count: 0, lastReset: now };
-
-    if (now - limitRecord.lastReset > RATE_LIMIT_WINDOW_MS) {
-      limitRecord.count = 0;
-      limitRecord.lastReset = now;
+    
+    if (ratelimit) {
+      const { success } = await ratelimit.limit(`ratelimit_${ip}`);
+      if (!success) {
+        return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+      }
+    } else {
+      // Fallback for local development when Upstash is not configured
+      console.warn("Upstash Redis not configured. Bypassing rate limiting for IP:", ip);
     }
-
-    if (limitRecord.count >= MAX_REQUESTS_PER_WINDOW) {
-      return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
-    }
-
-    limitRecord.count += 1;
-    rateLimitMap.set(ip, limitRecord);
   }
 
   // 2. Check if the current path requires authentication (Admin Routes)
@@ -72,12 +82,30 @@ export async function middleware(request: NextRequest) {
 
   // Check RBAC for specific routes
   const isAdminPath = adminOnlyPaths.some((path) => pathname.startsWith(path));
+  const isContentPath = contentPaths.some((path) => pathname.startsWith(path));
   
-  if (isAdminPath && payload.role !== "SUPER_ADMIN" && payload.role !== "ADMIN") {
+  const role = payload.role;
+  const isSuperAdmin = role === "SUPER_ADMIN";
+  const isAdmin = role === "ADMIN" || isSuperAdmin;
+  const isEditor = role === "EDITOR" || isAdmin;
+  const isViewer = role === "VIEWER";
+  
+  if (isAdminPath && !isAdmin) {
     if (pathname.startsWith("/api/")) {
-      return NextResponse.json({ error: "Forbidden: Insufficient permissions" }, { status: 403 });
+      return NextResponse.json({ error: "Forbidden: Admin access required" }, { status: 403 });
     }
     return NextResponse.redirect(new URL("/unauthorized", request.url));
+  }
+
+  // Restrict write actions on content paths to Editor and above
+  if (isContentPath) {
+    const isWriteMethod = ["POST", "PUT", "PATCH", "DELETE"].includes(request.method);
+    if (isWriteMethod && !isEditor) {
+      if (pathname.startsWith("/api/")) {
+        return NextResponse.json({ error: "Forbidden: Editor access required to modify content" }, { status: 403 });
+      }
+      return NextResponse.redirect(new URL("/unauthorized", request.url));
+    }
   }
 
   // Add the user payload to headers so downstream API routes can access it

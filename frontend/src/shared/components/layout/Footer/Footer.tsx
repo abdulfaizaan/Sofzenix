@@ -19,9 +19,9 @@ export function Footer(): React.JSX.Element {
           </div>
 
           <div className="md:col-span-3">
-            <div role="heading" aria-level={2} className="text-sm font-medium uppercase tracking-[0.2em] text-muted">
+            <h2 className="text-sm font-medium uppercase tracking-[0.2em] text-muted">
               Navigation
-            </div>
+            </h2>
             <ul className="mt-4 space-y-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
@@ -37,14 +37,17 @@ export function Footer(): React.JSX.Element {
           </div>
 
           <div className="md:col-span-4">
-            <div role="heading" aria-level={2} className="text-sm font-medium uppercase tracking-[0.2em] text-muted">
+            <h2 className="text-sm font-medium uppercase tracking-[0.2em] text-muted">
               Contact
-            </div>
+            </h2>
             <ul className="mt-4 space-y-3 text-body">
               <li>
-                <span className="hover:text-accent transition-colors cursor-pointer text-text">
+                <a 
+                  href={`mailto:${SITE.email}`}
+                  className="hover:text-accent transition-colors text-text"
+                >
                   {SITE.email}
-                </span>
+                </a>
               </li>
               <li className="text-muted">
                 {SITE.address.city}, {SITE.address.country}

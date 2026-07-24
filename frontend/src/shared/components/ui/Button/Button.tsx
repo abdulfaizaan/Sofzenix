@@ -56,7 +56,9 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
             rel="noreferrer noopener"
             className={classes}
             {...anchorRest}
-          />
+          >
+            {anchorRest.children}
+          </a>
         );
       }
 
@@ -66,7 +68,9 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
           href={href}
           className={classes}
           {...anchorRest}
-        />
+        >
+          {anchorRest.children}
+        </Link>
       );
     }
 

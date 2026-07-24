@@ -1,6 +1,19 @@
 import { z } from "zod";
 
 // ----------------------------------------------------------------------------
+// Auth Validators
+// ----------------------------------------------------------------------------
+export const LoginSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(1, "Password is required"),
+  token: z.string().length(6, "TOTP token must be 6 digits").optional(),
+});
+
+export const Verify2FASchema = z.object({
+  token: z.string().length(6, "TOTP token must be 6 digits").regex(/^\d+$/, "Must contain only digits"),
+});
+
+// ----------------------------------------------------------------------------
 // Portfolio Validators
 // ----------------------------------------------------------------------------
 export const PortfolioCreateSchema = z.object({
@@ -88,6 +101,7 @@ export const ContactMessageCreateSchema = z.object({
   email: z.string().email("Valid email is required"),
   service: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  turnstileToken: z.string().min(10, "Captcha token is required"),
 });
 
 export const NewsletterSubscribeSchema = z.object({
@@ -119,6 +133,7 @@ export const JobApplicationCreateSchema = z.object({
   resumeUrl: z.string().url("Must be a valid URL"),
   portfolio: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   coverLetter: z.string().optional(),
+  turnstileToken: z.string().min(10, "Captcha token is required"),
 });
 
 export const JobApplicationUpdateSchema = z.object({

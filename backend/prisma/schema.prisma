@@ -48,11 +48,13 @@ enum ApplicationStatus {
 // ----------------------------------------------------------------------------
 
 model User {
-  id           String @id @default(uuid())
-  email        String @unique
-  passwordHash String
-  name         String
-  role         Role   @default(VIEWER)
+  id              String    @id @default(uuid())
+  email           String    @unique
+  passwordHash    String
+  name            String
+  role            Role      @default(VIEWER)
+  twoFactorSecret String?
+  lastLogin       DateTime?
 
   sessions  Session[]
   auditLogs AuditLog[]
@@ -68,6 +70,8 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
+  ipAddress String?
+  userAgent String?
 
   createdAt DateTime @default(now())
 }
@@ -286,12 +290,13 @@ model ContactMessage {
 }
 
 model Lead {
-  id      String        @id @default(uuid())
-  name    String
-  email   String
-  company String?
-  source  String?
-  status  ContactStatus @default(NEW)
+  id             String        @id @default(uuid())
+  name           String
+  emailEncrypted String
+  phoneEncrypted String?
+  company        String?
+  source         String?
+  status         ContactStatus @default(NEW)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -342,6 +347,7 @@ model AuditLog {
   entityType String
   entityId   String?
   details    Json?
+  ipAddress  String?
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
