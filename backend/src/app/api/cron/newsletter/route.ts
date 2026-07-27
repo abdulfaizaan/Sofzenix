@@ -38,8 +38,8 @@ export const GET = withErrorHandler(async (request: Request) => {
   }
 
   // 3. Compose Email
-  const emails = subscribers.map(sub => sub.email);
-  const postList = recentPosts.map(p => `<li><strong>${p.title}</strong>: ${p.excerpt || ''}</li>`).join("");
+  const emails = subscribers.map((sub: { email: string }) => sub.email);
+  const postList = recentPosts.map((p: { title: string; excerpt: string | null }) => `<li><strong>${p.title}</strong>: ${p.excerpt || ''}</li>`).join("");
   
   const htmlContent = `
     <h2>SOFZENIX Weekly Update</h2>

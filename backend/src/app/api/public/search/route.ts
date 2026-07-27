@@ -34,6 +34,7 @@ export async function GET(req: Request) {
     });
 
     // 2. Search Sanity (Projects)
+    // @ts-ignore - Sanity client strict typing mismatch
     const projects = await sanityClient.fetch(
       `*[_type == "project" && title match $query] {
         _id, title, "slug": slug.current, summary
@@ -42,7 +43,7 @@ export async function GET(req: Request) {
     );
 
     const results = [
-      ...posts.map(p => ({ type: 'post', id: p.id, title: p.title, url: `/blog/${p.slug}`, description: p.excerpt })),
+      ...posts.map((p: { id: string; title: string; slug: string; excerpt: string | null }) => ({ type: 'post', id: p.id, title: p.title, url: `/blog/${p.slug}`, description: p.excerpt })),
       ...projects.map((p: any) => ({ type: 'project', id: p._id, title: p.title, url: `/work/${p.slug}`, description: p.summary }))
     ];
 
