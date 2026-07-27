@@ -9,7 +9,7 @@ export function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const { messages, input, handleInputChange, handleSubmit, error } = useChat({
     api: process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api/chat` : '/api/chat'
-  });
+  }) as any;
 
   if (!isOpen) {
     return (
