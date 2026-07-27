@@ -8,5 +8,15 @@
     "services": "Servicios",
     "about": "Nosotros",
     "contact": "Contacto"
+  },
+  "Auth": {
+    "loginTitle": "Bienvenido de nuevo",
+    "loginSubtitle": "Ingresa tus credenciales para acceder",
+    "emailLabel": "Correo electrónico",
+    "passwordLabel": "Contraseña",
+    "signInButton": "Iniciar sesión",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes cuenta?",
+    "signUp": "Regístrate"
   }
 }
