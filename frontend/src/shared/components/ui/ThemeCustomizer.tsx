@@ -13,7 +13,7 @@ const COLORS = [
 
 export function ThemeCustomizer() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeColor, setActiveColor] = useState(COLORS[0].value);
+  const [activeColor, setActiveColor] = useState(COLORS[0]?.value || '#10b981');
 
   useEffect(() => {
     const saved = localStorage.getItem('theme-accent');
