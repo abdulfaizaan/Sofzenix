@@ -34,8 +34,8 @@ export async function GET(req: Request) {
     });
 
     // 2. Search Sanity (Projects)
-    // @ts-ignore - Sanity client strict typing mismatch
-    const projects = await sanityClient.fetch(
+    // Force bypass strict typing mismatch
+    const projects = await (sanityClient.fetch as any)(
       `*[_type == "project" && title match $query] {
         _id, title, "slug": slug.current, summary
       }[0...5]`,
