@@ -30,21 +30,27 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
-  // 1. Check Public POST endpoints for Rate Limiting & API Key Verification
-  if (request.method === "POST" && pathname.startsWith("/api/public/")) {
-    // API Key Verification
-    const providedKey = request.headers.get("x-frontend-key");
-    const expectedKey = process.env.FRONTEND_API_KEY || "default_dev_key_123";
-    
-    if (providedKey !== expectedKey) {
-      return NextResponse.json({ error: "Forbidden: Invalid API Key" }, { status: 403 });
+  // 1. Check Public endpoints for Rate Limiting & API Key Verification
+  const isPublicApi = pathname.startsWith("/api/public/");
+  const isChatApi = pathname.startsWith("/api/chat");
+  const isRateLimitedPath = isPublicApi || isChatApi;
+
+  if (isRateLimitedPath) {
+    // API Key Verification for POST requests
+    if (request.method === "POST") {
+      const providedKey = request.headers.get("x-frontend-key");
+      const expectedKey = process.env.FRONTEND_API_KEY || "default_dev_key_123";
+      
+      if (providedKey !== expectedKey) {
+        return NextResponse.json({ error: "Forbidden: Invalid API Key" }, { status: 403 });
+      }
     }
 
     // Rate Limiting Logic via Upstash
     const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown_ip";
     
     if (ratelimit) {
-      const { success } = await ratelimit.limit(`ratelimit_${ip}`);
+      const { success } = await ratelimit.limit(`ratelimit_${ip}_${pathname}`);
       if (!success) {
         return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
       }
@@ -105,6 +111,14 @@ export async function middleware(request: NextRequest) {
         return NextResponse.json({ error: "Forbidden: Editor access required to modify content" }, { status: 403 });
       }
       return NextResponse.redirect(new URL("/unauthorized", request.url));
+    }
+  }
+
+  // Apply Authenticated Rate Limiting
+  if (ratelimit && pathname.startsWith("/api/admin")) {
+    const { success } = await ratelimit.limit(`auth_limit_${payload.userId}`);
+    if (!success) {
+      return NextResponse.json({ error: "Too many requests. Please slow down." }, { status: 429 });
     }
   }
 

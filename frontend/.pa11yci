@@ -1,0 +1,14 @@
+{
+  "defaults": {
+    "timeout": 30000,
+    "wait": 2000,
+    "runners": ["axe"],
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
+  },
+  "urls": [
+    "http://localhost:3000/",
+    "http://localhost:3000/work"
+  ]
+}

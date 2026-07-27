@@ -34,7 +34,7 @@ export function ProjectCard({ project, className }: ProjectCardProps): React.JSX
           src={project.image.src}
           alt={project.image.alt}
           fill
-          sizes="(min-width: 1280px) 70vw, 100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-[1.5s] ease-out-expo group-hover:scale-[1.05]"
           priority={false}
         />

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { JobApplicationCreateSchema } from "@/validators";
 import { z } from "zod";
+import { encrypt } from "@/lib/encryption";
 
 export async function POST(request: Request) {
   try {
@@ -18,8 +19,8 @@ export async function POST(request: Request) {
         jobId: data.jobId,
         firstName: data.firstName,
         lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
+        emailEncrypted: encrypt(data.email),
+        phoneEncrypted: data.phone ? encrypt(data.phone) : null,
         resumeUrl: data.resumeUrl,
         portfolio: data.portfolio,
         coverLetter: data.coverLetter,

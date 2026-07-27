@@ -1,7 +1,7 @@
 import type * as React from "react";
 import type { Metadata } from "next";
 import { Hero } from "@/widgets/hero";
-import { Portfolio } from "@/widgets/portfolio";
+import { WorkGallery } from "@/widgets/work-gallery";
 import { ContactCta } from "@/widgets/contact-cta";
 import { SITE } from "@/shared/constants/site";
 
@@ -24,7 +24,7 @@ export default function WorkPage(): React.JSX.Element {
         showStats={false}
         showScrollIndicator={true}
       />
-      <Portfolio />
+      <WorkGallery />
       <ContactCta />
     </>
   );

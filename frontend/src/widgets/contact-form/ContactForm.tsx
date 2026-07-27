@@ -84,6 +84,7 @@ export function ContactForm(): React.JSX.Element {
             type="button"
             className="mt-4 px-6 py-2 bg-white border border-green-200 text-green-700 rounded-lg text-sm font-medium hover:bg-green-50 transition-colors"
             onClick={() => setStatus("idle")}
+            aria-label="Send another message"
           >
             Send another message
           </button>
@@ -160,7 +161,7 @@ export function ContactForm(): React.JSX.Element {
                 className="w-[18px] h-[18px] border-border rounded-sm bg-transparent cursor-pointer appearance-none checked:bg-accent checked:border-accent relative before:content-[''] before:absolute before:inset-0 before:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwb2x5bGluZSBwb2ludHM9IjIwIDYgOSAxNyA0IDEyIj48L3BvbHlsaW5lPjwvc3ZnPg==')] before:bg-no-repeat before:bg-center before:bg-[length:12px_12px] checked:before:block before:hidden focus:ring-0 focus:outline-none"
               />
               <label htmlFor="privacyPolicy" className="text-sm text-muted cursor-pointer select-none">
-                I agree to the <Link href="/privacy-policy" className="underline hover:text-accent transition-colors text-text">privacy policy</Link>.
+                I agree to the <Link href="/privacy-policy" aria-label="Read our privacy policy" className="underline hover:text-accent transition-colors text-text">privacy policy</Link>.
               </label>
               {errors.privacyPolicy && <span className="text-red-500 text-[10px] absolute -bottom-5 left-0 uppercase font-semibold tracking-wider w-max">{errors.privacyPolicy.message}</span>}
             </div>

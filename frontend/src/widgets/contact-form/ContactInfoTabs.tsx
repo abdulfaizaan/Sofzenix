@@ -19,8 +19,11 @@ export function ContactInfoTabs() {
   return (
     <div className="w-full h-full flex flex-col justify-between">
       {/* Tabs */}
-      <div className="flex gap-3 md:gap-4 flex-wrap relative z-10">
+      <div className="flex gap-3 md:gap-4 flex-wrap relative z-10" role="tablist" aria-label="Contact options">
         <button
+          role="tab"
+          aria-selected={activeTab === "inquiries"}
+          aria-label="View Inquiries contact info"
           onClick={() => setActiveTab("inquiries")}
           className={`inline-flex items-center justify-center px-6 py-2.5 rounded-full transition-all duration-300 text-sm font-medium border cursor-pointer ${
             activeTab === "inquiries"
@@ -32,6 +35,9 @@ export function ContactInfoTabs() {
           Inquiries
         </button>
         <button
+          role="tab"
+          aria-selected={activeTab === "findUs"}
+          aria-label="View our location"
           onClick={() => setActiveTab("findUs")}
           className={`inline-flex items-center justify-center px-6 py-2.5 rounded-full transition-all duration-300 text-sm font-medium border cursor-pointer ${
             activeTab === "findUs"
@@ -43,6 +49,9 @@ export function ContactInfoTabs() {
           Find us
         </button>
         <button
+          role="tab"
+          aria-selected={activeTab === "followUs"}
+          aria-label="View our social media links"
           onClick={() => setActiveTab("followUs")}
           className={`inline-flex items-center justify-center px-6 py-2.5 rounded-full transition-all duration-300 text-sm font-medium border cursor-pointer ${
             activeTab === "followUs"
@@ -58,8 +67,8 @@ export function ContactInfoTabs() {
       {/* Tab Content */}
       <div className="mt-24 lg:mt-0 space-y-4 relative z-10">
         {activeTab === "inquiries" && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
-            <button onClick={handleCopyEmail} className="block group text-left cursor-pointer w-full">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both" role="tabpanel" aria-label="Inquiries content">
+            <button onClick={handleCopyEmail} aria-label="Copy email address" className="block group text-left cursor-pointer w-full">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-semibold tracking-tight text-text border-b-2 border-text/20 pb-4 inline-block hover:border-text transition-colors break-words max-w-full relative">
                 {SITE.email}
                 <span className="inline-flex transform group-hover:scale-110 transition-transform text-muted align-top leading-none ml-3 opacity-0 group-hover:opacity-100 items-center justify-center">
@@ -81,8 +90,8 @@ export function ContactInfoTabs() {
         )}
         
         {activeTab === "findUs" && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
-            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.address.city + ', ' + SITE.address.country)}`} target="_blank" rel="noopener noreferrer" className="block group">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both" role="tabpanel" aria-label="Find Us content">
+            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.address.city + ', ' + SITE.address.country)}`} aria-label="Open Google Maps for our location" target="_blank" rel="noopener noreferrer" className="block group">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-semibold tracking-tight text-text border-b-2 border-text/20 pb-4 inline-block hover:border-text transition-colors">
                 {SITE.address.city}, {SITE.address.country} <span className="inline-block transform group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform text-muted text-2xl md:text-3xl align-top leading-none">↗</span>
               </h1>
@@ -92,8 +101,8 @@ export function ContactInfoTabs() {
         )}
         
         {activeTab === "followUs" && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
-            <a href={SITE.social.linkedin} target="_blank" rel="noopener noreferrer" className="block group">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both" role="tabpanel" aria-label="Follow Us content">
+            <a href={SITE.social.linkedin} aria-label="Visit our LinkedIn profile" target="_blank" rel="noopener noreferrer" className="block group">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-semibold tracking-tight text-text border-b-2 border-transparent pb-4 inline-block">
                 LinkedIn <span className="inline-block transform group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform text-muted text-3xl align-top leading-none">↗</span>
               </h1>

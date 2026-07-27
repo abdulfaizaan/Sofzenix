@@ -58,5 +58,41 @@ export const projectType = defineType({
         },
       ],
     }),
+    defineField({
+      name: "caseStudyBlocks",
+      title: "Case Study Blocks",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "challengeSolution",
+          title: "Challenge -> Solution -> Result",
+          fields: [
+            { name: "challenge", type: "text", title: "The Challenge" },
+            { name: "solution", type: "text", title: "The Solution" },
+            { name: "result", type: "text", title: "The Result" },
+          ],
+        },
+        {
+          type: "object",
+          name: "testimonial",
+          title: "Testimonial Embed",
+          fields: [
+            { name: "quote", type: "text", title: "Quote" },
+            { name: "author", type: "string", title: "Author Name" },
+            { name: "role", type: "string", title: "Author Role" },
+            { name: "avatar", type: "image", title: "Avatar Image" },
+          ],
+        },
+        {
+          type: "object",
+          name: "gallery",
+          title: "Image Gallery",
+          fields: [
+            { name: "images", type: "array", of: [{ type: "image" }], title: "Images" }
+          ]
+        }
+      ],
+    }),
   ],
 });

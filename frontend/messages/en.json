@@ -1,0 +1,12 @@
+{
+  "Hero": {
+    "title": "Products that earn their place.",
+    "subtitle": "A curated selection of our recent collaborations."
+  },
+  "Navigation": {
+    "work": "Work",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact"
+  }
+}

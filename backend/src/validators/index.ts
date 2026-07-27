@@ -65,6 +65,7 @@ export const TestimonialCreateSchema = z.object({
   company: z.string().optional(),
   content: z.string().min(1, "Content is required"),
   avatarUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  videoUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   featured: z.boolean().default(false),
 });
 
@@ -79,6 +80,13 @@ export const BlogCategoryCreateSchema = z.object({
 });
 
 export const BlogCategoryUpdateSchema = BlogCategoryCreateSchema.partial();
+
+export const TagCreateSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  slug: z.string().min(1, "Slug is required"),
+});
+
+export const TagUpdateSchema = TagCreateSchema.partial();
 
 export const BlogPostCreateSchema = z.object({
   title: z.string().min(1, "Title is required"),

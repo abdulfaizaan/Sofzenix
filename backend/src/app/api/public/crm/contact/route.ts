@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { ContactMessageCreateSchema } from "@/validators";
 import { z } from "zod";
+import { encrypt } from "@/lib/encryption";
 
 export async function POST(request: Request) {
   try {
@@ -11,7 +12,7 @@ export async function POST(request: Request) {
     const message = await prisma.contactMessage.create({
       data: {
         name: data.name,
-        email: data.email,
+        emailEncrypted: encrypt(data.email),
         service: data.service,
         message: data.message,
         status: "NEW",

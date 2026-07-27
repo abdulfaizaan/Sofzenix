@@ -137,7 +137,7 @@ export function ContactCtaStage({
 
           <div data-cta-stagger className={styles.contactRow}>
             <span>Or write to us directly:</span>
-            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+            <a href={`mailto:${SITE.email}`} aria-label={`Email us at ${SITE.email}`}>{SITE.email}</a>
           </div>
         </div>
       </Container>

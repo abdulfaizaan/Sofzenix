@@ -12,3 +12,7 @@ export async function getJobs() {
 export async function getProjects() {
   return client.fetch(groq`*[_type == "project" && defined(slug.current)] | order(year desc)`);
 }
+
+export async function getProjectBySlug(slug: string) {
+  return client.fetch(groq`*[_type == "project" && slug.current == $slug][0]`, { slug });
+}

@@ -10,6 +10,10 @@ import { RouteProgress } from "@/shared/components/layout/RouteProgress";
 import { Navbar } from "@/shared/components/layout/Navbar";
 import { Footer } from "@/shared/components/layout/Footer";
 import { SkipToContent } from "@/shared/components/layout/SkipToContent";
+import { ChatbotWidget } from "@/widgets/chatbot/ChatbotWidget";
+import { ThemeCustomizer } from "@/shared/components/ui/ThemeCustomizer";
+import { SearchModal } from "@/shared/components/layout/SearchModal";
+import { showChatbot, showThemeCustomizer, showAdvancedSearch } from "@/shared/lib/flags";
 import { SITE } from "@/shared/constants/site";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
@@ -87,7 +91,11 @@ interface RootLayoutProps {
   readonly children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps): React.JSX.Element {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const isChatbotEnabled = await showChatbot();
+  const isThemeCustomizerEnabled = await showThemeCustomizer();
+  const isAdvancedSearchEnabled = await showAdvancedSearch();
+
   return (
     <html
       lang="en"
@@ -99,6 +107,27 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
           defer
           data-domain="sofzenix.com"
           src="https://plausible.io/js/script.js"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "SOFZENIX IT Solutions LLP",
+              url: SITE.url,
+              logo: `${SITE.url}/icon.svg`,
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: SITE.address.city,
+                addressCountry: SITE.address.country
+              },
+              sameAs: [
+                "https://twitter.com/sofzenix",
+                "https://linkedin.com/company/sofzenix"
+              ]
+            })
+          }}
         />
         <ThemeProvider>
           <GSAPProvider>
@@ -112,6 +141,9 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
               <Navbar />
               <main id="main-content" className="relative">{children}</main>
               <Footer />
+              {isChatbotEnabled && <ChatbotWidget />}
+              {isThemeCustomizerEnabled && <ThemeCustomizer />}
+              {isAdvancedSearchEnabled && <SearchModal />}
             </SmoothScrollProvider>
           </GSAPProvider>
         </ThemeProvider>

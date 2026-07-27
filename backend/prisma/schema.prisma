@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearchPostgres"]
 }
 
 datasource db {
@@ -74,6 +75,8 @@ model Session {
   userAgent String?
 
   createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 // ----------------------------------------------------------------------------
@@ -88,7 +91,10 @@ model Project {
   client      String?
   completedAt DateTime?
   featured    Boolean   @default(false)
-  results     String? // Markdown or JSON
+  challenge   String? // Markdown or text
+  solution    String? // Markdown or text
+  results     String? // Markdown or text
+  metrics     Json?   // e.g., [{ "label": "Increase", "value": "40%" }]
 
   categoryId String?
   category   ProjectCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
@@ -102,6 +108,9 @@ model Project {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+
+  @@index([categoryId])
+  @@index([seoId])
 }
 
 model ProjectCategory {
@@ -135,6 +144,8 @@ model ProjectMedia {
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
+
+  @@index([projectId])
 }
 
 // ----------------------------------------------------------------------------
@@ -155,6 +166,8 @@ model Service {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+
+  @@index([seoId])
 }
 
 model Testimonial {
@@ -164,6 +177,7 @@ model Testimonial {
   company   String?
   content   String
   avatarUrl String?
+  videoUrl  String?
   featured  Boolean @default(false)
 
   createdAt DateTime  @default(now())
@@ -210,6 +224,9 @@ model Post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+
+  @@index([categoryId])
+  @@index([seoId])
 }
 
 model BlogCategory {
@@ -260,8 +277,8 @@ model Application {
 
   firstName   String
   lastName    String
-  email       String
-  phone       String?
+  emailEncrypted String
+  phoneEncrypted String?
   resumeUrl   String
   portfolio   String?
   coverLetter String?
@@ -270,6 +287,8 @@ model Application {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([jobId])
 }
 
 // ----------------------------------------------------------------------------
@@ -279,7 +298,7 @@ model Application {
 model ContactMessage {
   id      String        @id @default(uuid())
   name    String
-  email   String
+  emailEncrypted String
   service String?
   message String
   status  ContactStatus @default(NEW)
@@ -353,4 +372,6 @@ model AuditLog {
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   createdAt DateTime @default(now())
+
+  @@index([userId])
 }
