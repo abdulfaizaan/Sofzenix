@@ -4,6 +4,8 @@ import type { Lead, ContactMessage } from "@prisma/client";
 import { StatusSelect } from "./StatusSelect";
 import { updateLeadStatus, updateMessageStatus } from "./actions";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboard() {
   const recentLeads = await prisma.lead.findMany({
     take: 10,
