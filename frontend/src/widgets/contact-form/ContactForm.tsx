@@ -42,12 +42,10 @@ export function ContactForm(): React.JSX.Element {
     setErrorMessage("");
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
-      const response = await fetch(`${apiUrl}/api/public/crm/contact`, {
+      const response = await fetch(`/api/public/crm/contact`, {
         method: "POST",
         headers: { 
-          "Content-Type": "application/json",
-          "x-frontend-key": process.env.NEXT_PUBLIC_FRONTEND_API_KEY || "default_dev_key_123"
+          "Content-Type": "application/json"
         },
         // Map frontend "subject" (Company) to backend "service" field
         body: JSON.stringify({

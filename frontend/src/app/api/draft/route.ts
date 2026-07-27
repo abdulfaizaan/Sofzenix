@@ -1,6 +1,6 @@
 import { draftMode } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { log } from '@/lib/logger';
+import { log } from '@/shared/lib/logger';
 
 export async function GET(request: NextRequest) {
   const secret = request.nextUrl.searchParams.get('secret');

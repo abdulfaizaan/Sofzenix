@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidateTag, revalidatePath } from 'next/cache';
-import { log } from '@/lib/logger';
+import { log } from '@/shared/lib/logger';
 
 /**
  * Enterprise ISR Webhook Endpoint

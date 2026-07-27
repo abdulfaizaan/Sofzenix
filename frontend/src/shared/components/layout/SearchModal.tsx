@@ -33,8 +33,7 @@ export function SearchModal() {
     const timer = setTimeout(async () => {
       setLoading(true);
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-        const res = await fetch(`${apiUrl}/api/public/search?q=${encodeURIComponent(query)}`);
+        const res = await fetch(`/api/public/search?q=${encodeURIComponent(query)}`);
         if (res.ok) {
           const data = await res.json();
           setResults(data.results || []);
