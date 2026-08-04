@@ -1,0 +1,12 @@
+.row { display: flex; gap: 8px; }
+.btn {
+  width: 40px; height: 40px;
+  border-radius: 999px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-dim);
+  transition: color var(--d-2), border-color var(--d-2), transform var(--d-2);
+}
+.btn:hover { color: var(--text); border-color: var(--accent); transform: translateY(-2px); }
+.btn svg { width: 18px; height: 18px; }

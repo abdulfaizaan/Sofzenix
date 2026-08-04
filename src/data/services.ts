@@ -1,0 +1,58 @@
+import type { Service } from '../types'
+
+export const services: Service[] = [
+  {
+    id: 'web',
+    slug: 'software-engineering',
+    title: 'Software Engineering',
+    tagline: 'High-performance web apps built with modern stacks.',
+    description: 'We build high-performance web apps with modern stacks, accessibility, security, and analytics instrumentation from sprint zero.',
+    capabilities: ['SSR / SPA', 'API Layer', 'Performance optimization', 'React & Node.js'],
+    icon: 'web',
+  },
+  {
+    id: 'mobile',
+    slug: 'app-development',
+    title: 'App Development',
+    tagline: 'Native and cross-platform mobile experiences.',
+    description: 'Native and cross-platform mobile experiences focused on fluid interaction, offline resilience, and fast release velocity.',
+    capabilities: ['iOS / Android', 'Flutter / React Native', 'CI/CD Automation', 'App Store launch'],
+    icon: 'mobile',
+  },
+  {
+    id: 'marketing',
+    slug: 'growth-marketing',
+    title: 'Growth Marketing',
+    tagline: 'Full-funnel user acquisition and retention engines.',
+    description: 'Full-funnel user acquisition and retention engines blending organic SEO/SEM foundation with paid channel acceleration.',
+    capabilities: ['SEO & SEM', 'Paid Media', 'CRO', 'Content Strategy'],
+    icon: 'marketing',
+  },
+  {
+    id: 'ai',
+    slug: 'cognitive-systems',
+    title: 'Cognitive Systems',
+    tagline: 'Applied machine learning pipelines and automation.',
+    description: 'Applied machine learning pipelines, intelligent agents, and workflow automation delivering measurable operational leverage.',
+    capabilities: ['MLOps', 'LLM Integration', 'Data Engineering', 'Workflow Automation'],
+    icon: 'code',
+  },
+  {
+    id: 'uiux',
+    slug: 'product-design',
+    title: 'Product Design',
+    tagline: 'Identity systems and multi-channel design ops.',
+    description: 'Identity systems and multi-channel design ops for consistent, conversion-driven product and marketing surfaces.',
+    capabilities: ['Design Systems', 'UX Audits', 'Rapid Prototyping', 'UI Design'],
+    icon: 'design',
+  },
+  {
+    id: 'crm',
+    slug: 'crm-solutions',
+    title: 'CRM Solutions',
+    tagline: 'End-to-end Salesforce CRM deployment.',
+    description: 'End-to-end Salesforce CRM deployment: setup, customization, custom workflow automation, and 3rd-party integrations.',
+    capabilities: ['Sales Cloud', 'Custom Flows', 'System Integrations', 'Workflow Automation'],
+    icon: 'branding',
+  },
+]

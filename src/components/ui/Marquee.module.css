@@ -1,0 +1,31 @@
+.marquee {
+  overflow: hidden;
+  width: 100%;
+  user-select: none;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  width: max-content;
+  gap: 0;
+  will-change: transform;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-size: clamp(40px, 8vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  padding: 0 24px;
+}
+
+.sep {
+  font-size: 0.4em;
+  color: var(--accent);
+  margin: 0 24px;
+}

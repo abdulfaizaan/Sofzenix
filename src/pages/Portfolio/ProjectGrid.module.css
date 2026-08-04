@@ -1,0 +1,89 @@
+.wrap { padding: var(--space-9) 0; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--d-2) var(--ease-out), border-color var(--d-2);
+  opacity: 0;
+  animation: fadeUp 0.7s var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+.card:nth-child(1) { --i: 1; }
+.card:nth-child(2) { --i: 2; }
+.card:nth-child(3) { --i: 3; }
+.card:nth-child(4) { --i: 4; }
+.card:nth-child(5) { --i: 5; }
+.card:nth-child(6) { --i: 6; }
+.card:hover { transform: translateY(-4px); border-color: var(--text-dim); }
+.shift { transform: translateY(40px); }
+.shift:hover { transform: translateY(36px); }
+@media (max-width: 800px) { .shift { transform: none; } .shift:hover { transform: translateY(-4px); } }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-5);
+}
+.year {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.big {
+  font-size: clamp(56px, 10vw, 140px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  opacity: 0.5;
+  align-self: flex-end;
+  text-align: right;
+}
+.coverFoot {
+  position: absolute;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--d-2), transform var(--d-2) var(--ease-out);
+}
+.card:hover .coverFoot { opacity: 1; transform: translateY(0); }
+.view {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--text);
+  color: var(--bg);
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.meta { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.title { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+.summary { color: var(--text-dim); font-size: 14px; line-height: 1.5; }

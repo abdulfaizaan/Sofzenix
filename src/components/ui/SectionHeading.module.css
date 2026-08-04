@@ -1,0 +1,26 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 900px;
+  margin-bottom: var(--space-7);
+}
+.center { align-items: center; text-align: center; margin-inline: auto; }
+
+.eyebrow { color: var(--text-mute); }
+
+.title {
+  font-size: clamp(32px, 4.5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.desc {
+  color: var(--text-dim);
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 640px;
+  text-wrap: pretty;
+}

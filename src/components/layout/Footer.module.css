@@ -1,0 +1,85 @@
+.footer {
+  position: relative;
+  padding: var(--space-9) 0 var(--space-5);
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--space-7);
+}
+
+.bigCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  align-self: flex-start;
+  transition: gap var(--d-2) var(--ease-out);
+}
+.bigCta:hover { gap: var(--space-5); }
+.bigCta svg { stroke: var(--accent); -webkit-text-fill-color: initial; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-7);
+  padding-bottom: var(--space-8);
+}
+@media (max-width: 800px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; gap: var(--space-5); }
+}
+
+.brand { display: flex; flex-direction: column; gap: var(--space-4); }
+.logo { display: inline-flex; align-items: center; gap: 12px; }
+.brandText { font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.brandDim { color: var(--text-dim); margin-left: 6px; font-weight: 500; }
+.tagline { color: var(--text-dim); max-width: 360px; line-height: 1.6; font-family: var(--font-sans); }
+
+.list { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-4); color: var(--text-dim); font-family: var(--font-sans); font-size: 14px; }
+.list a { transition: color var(--d-2); }
+.list a:hover { color: var(--text); }
+
+.bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+  color: var(--text-mute);
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+
+.giant {
+  position: absolute;
+  bottom: -10vw;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 32vw;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.8;
+  background: linear-gradient(180deg, rgba(0, 229, 255, 0.1) 0%, transparent 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}

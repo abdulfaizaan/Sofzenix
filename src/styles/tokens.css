@@ -1,0 +1,79 @@
+/* ----------  Design tokens (Cyber-Minimalist Sci-Fi)  ---------- */
+:root {
+  /* Color */
+  --bg: #080B10; /* Deepest space navy */
+  --bg-2: #0E141D; /* Slightly lighter navy */
+  --bg-3: #161F2C; /* Slate blue-grey */
+  
+  --line: #212C3D; /* Subtle slate border */
+  
+  --text: #F8FAFC; /* Crisp white */
+  --text-dim: #94A3B8; /* Slate gray */
+  --text-mute: #64748B;
+
+  /* Accents */
+  --accent: #00E5FF; /* Neon Cyan */
+  --accent-2: #A855F7; /* Electric Violet */
+  --accent-3: #3B82F6; /* Standard Blue */
+  --accent-grad: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  --accent-glow: 0 0 16px rgba(0, 229, 255, 0.4); /* Neon glow */
+
+  /* Type */
+  --font-display: 'Poppins', system-ui, sans-serif;
+  --font-sans: 'Poppins', system-ui, sans-serif;
+  --font-mono: 'Space Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Radii */
+  --r-1: 6px;
+  --r-2: 12px;
+  --r-3: 16px;
+  --r-4: 24px;
+  --r-pill: 9999px;
+
+  /* Layout */
+  --container: 1280px;
+  --container-narrow: 920px;
+  --nav-h: 72px;
+
+  /* Easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Duration */
+  --d-1: 0.18s;
+  --d-2: 0.32s;
+  --d-3: 0.6s;
+  --d-4: 1s;
+
+  /* Z */
+  --z-cursor: 9999;
+  --z-nav: 100;
+  --z-modal: 200;
+  --z-progress: 50;
+}
+
+[data-theme='light'] {
+  --bg: #F8FAFC;
+  --bg-2: #F1F5F9;
+  --bg-3: #E2E8F0;
+  --line: #CBD5E1;
+  --text: #0F172A;
+  --text-dim: #475569;
+  --text-mute: #94A3B8;
+  --accent: #2563EB; /* Deep Blue for light mode readability */
+  --accent-2: #7C3AED;
+  --accent-glow: 0 0 16px rgba(37, 99, 235, 0.3);
+}

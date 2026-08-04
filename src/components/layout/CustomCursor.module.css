@@ -1,0 +1,55 @@
+:global(.has-custom-cursor) {
+  cursor: none;
+}
+:global(.has-custom-cursor) a,
+:global(.has-custom-cursor) button {
+  cursor: none;
+}
+
+.dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: var(--text);
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  margin-left: -3px;
+  margin-top: -3px;
+  transition: opacity var(--d-2), background var(--d-2), transform 0s;
+  mix-blend-mode: difference;
+}
+.dot.hover { background: var(--accent); }
+.dot.view { background: var(--accent-2); }
+
+.ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--text);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  margin-left: -18px;
+  margin-top: -18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  transition: width var(--d-2) var(--ease-out), height var(--d-2) var(--ease-out),
+              border-color var(--d-2), background var(--d-2), margin var(--d-2);
+}
+.ringLabel { opacity: 0; transition: opacity var(--d-2); }
+.ring.view { width: 80px; height: 80px; margin-left: -40px; margin-top: -40px; background: var(--accent); border-color: var(--accent); }
+.ring.view .ringLabel { opacity: 1; color: #fff; }
+.ring.hover { width: 56px; height: 56px; margin-left: -28px; margin-top: -28px; border-color: var(--accent); background: transparent; }
+
+@media (pointer: coarse) {
+  :global(.has-custom-cursor) { cursor: auto; }
+  .dot, .ring { display: none; }
+}

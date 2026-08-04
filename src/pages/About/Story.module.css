@@ -1,0 +1,27 @@
+.wrap { padding: var(--space-9) 0; }
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-bottom: var(--space-7);
+  max-width: 900px;
+}
+.title {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 760px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+.body p { text-wrap: pretty; }

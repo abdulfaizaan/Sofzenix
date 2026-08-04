@@ -1,0 +1,30 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.filter {
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+  transition: background var(--d-2), color var(--d-2), border-color var(--d-2);
+}
+.filter:hover { color: var(--text); border-color: var(--text-dim); }
+.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.count { color: var(--text-mute); }

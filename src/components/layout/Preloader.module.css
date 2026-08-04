@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap');
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.counter {
+  display: flex;
+  align-items: baseline;
+  color: var(--text);
+  font-family: var(--font-mono);
+  will-change: transform, opacity;
+}
+
+.num {
+  font-size: clamp(60px, 12vw, 140px);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+.percent {
+  font-size: clamp(24px, 4vw, 50px);
+  margin-left: 12px;
+  opacity: 0.5;
+  font-weight: 400;
+}
+
+.name {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(32px, 6vw, 72px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+  opacity: 0;
+  will-change: transform, opacity;
+}

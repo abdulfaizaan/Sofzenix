@@ -1,0 +1,69 @@
+.wrap { padding: var(--space-9) 0; }
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: var(--space-7);
+  align-items: stretch;
+}
+@media (max-width: 800px) { .body { grid-template-columns: 1fr; } }
+
+.dial {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  padding: var(--space-7);
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+.quote {
+  width: 36px; height: 36px;
+  color: var(--accent);
+  opacity: 0.6;
+}
+.meta { margin-top: auto; display: flex; justify-content: space-between; align-items: end; border-top: 1px solid var(--line); padding-top: var(--space-4); }
+.name { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
+.role { font-family: var(--font-sans); font-size: 14px; color: var(--text-dim); margin-top: 4px; }
+
+.right { display: flex; flex-direction: column; gap: var(--space-5); justify-content: space-between; }
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 6px;
+  width: fit-content;
+  background: var(--bg-2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.controls button {
+  width: 40px; height: 40px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background var(--d-2), color var(--d-2), box-shadow var(--d-2);
+}
+.controls button:hover { 
+  background: var(--accent); 
+  color: #000;
+  box-shadow: var(--accent-glow);
+}
+.count { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); padding: 0 8px; font-weight: 700; }
+
+.dots { display: flex; gap: 8px; }
+.dot {
+  width: 32px; height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  transition: background var(--d-2), box-shadow var(--d-2);
+}
+.dotActive { 
+  background: var(--accent); 
+  box-shadow: var(--accent-glow);
+}
